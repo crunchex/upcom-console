@@ -1,0 +1,11 @@
+name: upcom-console
+version: 0.1.0
+authors:
+- Mike Lewis <mike@updroid.com>
+description: UpCom Tab for a terminal.
+homepage: https://www.updroid.com/upcom
+environment:
+  sdk: '>=1.9.3 <2.0.0'
+dependencies:
+  upcom-api:
+    path: /home/crunchex/work/upcom-api/
