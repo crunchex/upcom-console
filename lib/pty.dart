@@ -84,7 +84,3 @@ class CmdrConsole extends Tab {
     if (_shell != null) _shell.kill();
   }
 }
-
-void main(List args, SendPort interfacesSendPort) {
-  Tab.main(interfacesSendPort, args, (id, path, port, args) => new CmdrConsole(id, path, port, args));
-}
