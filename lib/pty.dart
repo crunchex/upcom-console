@@ -56,6 +56,8 @@ class CmdrConsole extends Tab {
       help.debug('cmdr-pty [$id]: run failed. Probably not installed', 1);
       return;
     });
+
+    mailbox.send(new Msg('RESIZE', msg));
   }
 
   void _handleIOStream(String msg) {
