@@ -18,7 +18,6 @@ class CmdrConsole extends Tab {
   CmdrConsole(int id, String workspacePath, SendPort sp, List args) :
   super(id, 'UpDroidConsole', sp) {
     _workspacePath = workspacePath;
-    mailbox.send(new Msg('TAB_READY'));
   }
 
   void registerMailbox() {
