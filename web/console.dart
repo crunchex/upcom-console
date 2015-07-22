@@ -159,13 +159,3 @@ class UpDroidConsole extends TabController {
     _ws.close();
   }
 }
-
-//void main() {
-////  int id = message[0];
-////  int column = message[1];
-////  bool active = message[2];
-//
-//  StreamController<CommanderMessage> cs = new StreamController<CommanderMessage>.broadcast();
-//
-//  new UpDroidConsole(1, 2, cs, active: true);
-//}
