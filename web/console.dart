@@ -116,7 +116,7 @@ class UpDroidConsole extends TabController {
   //\/\/ Mailbox Handlers /\/\//
 
   void registerMailbox() {
-    mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'TAB_READY', _startPty);
+    mailbox.registerWebSocketEvent(EventType.ON_OPEN, 'TAB_READY', _startPty);
     mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'RESIZE', _resizeHandler);
     mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'DATA', _handleData);
   }
