@@ -5,10 +5,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:isolate';
 
-import 'package:upcom-api/tab.dart';
-import 'package:upcom-api/updroid_message.dart';
-import 'package:upcom-api/server_message.dart';
-import 'package:upcom-api/server_helper.dart' as help;
+import 'package:upcom-api/tab_backend.dart';
+import 'package:upcom-api/debug.dart' as help;
 
 class CmdrConsole extends Tab {
   Process _shell;
