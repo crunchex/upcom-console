@@ -26,7 +26,6 @@ class UpDroidConsole extends TabController {
     return menu;
   }
 
-  WebSocket _ws;
   Terminal _term;
 
   AnchorElement _themeButton;
@@ -155,6 +154,6 @@ class UpDroidConsole extends TabController {
   }
 
   void cleanUp() {
-    _ws.close();
+
   }
 }
