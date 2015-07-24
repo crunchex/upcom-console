@@ -24,3 +24,5 @@ BUILDBIN=$TOPDIR/build/bin
 mkdir -p $BUILDBIN
 dart2js --output-type=dart --categories=Server --minify -o $BUILDBIN/main.dart $TOPDIR/bin/main.dart
 rm -rf $BUILDBIN/main.dart.deps
+
+cp ${GOPATH:?"Need to set GOPATH non-empty"}/bin/cmdr-pty $BUILDBIN/cmdr-pty
