@@ -64,7 +64,7 @@ class CmdrConsole extends Tab {
 
   void _resizeRelay(String msg) {
     Msg m = new Msg('RESIZE', msg);
-    mailbox.relay(new ServerMessage('UpDroidConsole', 0, m));
+    mailbox.relay('UpDroidConsole', 0, m);
   }
 
   void _resizeHandle(String msg) {
