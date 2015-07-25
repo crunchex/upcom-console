@@ -14,7 +14,7 @@ class CmdrConsole extends Tab {
   Socket _ptySocket;
 
   CmdrConsole(int id, String workspacePath, SendPort sp, List args) :
-  super(id, 'UpDroidConsole', sp) {
+  super(id, 'upcom-console', 'UpDroid Console', 'Console', sp) {
     _workspacePath = workspacePath;
   }
 
@@ -64,7 +64,7 @@ class CmdrConsole extends Tab {
 
   void _resizeRelay(String msg) {
     Msg m = new Msg('RESIZE', msg);
-    mailbox.relay('UpDroidConsole', 0, m);
+    mailbox.relay('upcom-console', 0, m);
   }
 
   void _resizeHandle(String msg) {
