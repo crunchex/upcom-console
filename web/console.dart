@@ -55,16 +55,16 @@ class UpDroidConsole extends TabController {
     _term.cursorBlink = _term.cursorBlink ? false : true;
   }
 
-  void _startPty(UpDroidMessage um) {
+  void _startPty(Msg um) {
     List<int> size = _term.calculateSize();
     _term.resize(size[0], size[1]);
     mailbox.ws.send('[[START_PTY]]${size[0]}x${size[1] - 1}');
   }
 
-  void _handleData(UpDroidMessage um) => _term.stdout.add(JSON.decode(um.body));
+  void _handleData(Msg um) => _term.stdout.add(JSON.decode(um.body));
 
   /// Handle an incoming resize event, originating from either this [UpDroidConsole] or another.
-  void _resizeHandler(UpDroidMessage um) {
+  void _resizeHandler(Msg um) {
     List newSize = um.body.split('x');
     int newRow = int.parse(newSize[0]);
     int newCol = int.parse(newSize[1]);
