@@ -42,7 +42,7 @@ class UpDroidConsole extends TabController {
     _term = new Terminal(view.content)
       ..scrollSpeed = 3
       ..cursorBlink = true
-      ..theme = customLightTheme();
+      ..theme = customDarkTheme();
   }
 
   /// Toggles between a Solarized dark and light theme.
@@ -74,7 +74,7 @@ class UpDroidConsole extends TabController {
   Theme customDarkTheme() {
     String name = 'updroid-dark';
     Map<String, String> colors = {
-      'black'   : 'rgb(29, 29, 29)',
+      'black'   : '#1c1c1c',
       'red'     : '#ff2919',
       'green'   : '#ff2919',
       'yellow'  : '#ff2919',
