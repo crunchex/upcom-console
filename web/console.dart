@@ -13,6 +13,8 @@ import 'package:upcom-api/web/tab/tab_controller.dart';
 /// [UpDroidConsole] is a client-side class that combines a [Terminal]
 /// and [WebSocket] into an UpDroid Commander tab.
 class UpDroidConsole extends TabController {
+  static final List<String> names = ['upcom-console', 'UpDroid Console', 'Console'];
+
   static List getMenuConfig() {
     List menu = [
       {'title': 'File', 'items': [
@@ -26,12 +28,12 @@ class UpDroidConsole extends TabController {
 
   Terminal _term;
 
-  AnchorElement _themeButton;
-  AnchorElement _blinkButton;
+  AnchorElement _themeButton, _blinkButton;
 
   Timer _resizeTimer;
 
-  UpDroidConsole() : super('upcom-console', 'UpDroid Console', 'Console', getMenuConfig(), 'tabs/upcom-console/console.css') {
+  UpDroidConsole() :
+  super(UpDroidConsole.names, getMenuConfig(), 'tabs/upcom-console/console.css') {
 
   }
 
