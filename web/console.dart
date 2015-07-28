@@ -74,14 +74,14 @@ class UpDroidConsole extends TabController {
   Theme customDarkTheme() {
     String name = 'updroid-dark';
     Map<String, String> colors = {
-      'black'   : 'rgb(74, 74, 74)',
+      'black'   : 'rgb(29, 29, 29)',
       'red'     : '#ff2919',
       'green'   : '#ff2919',
       'yellow'  : '#ff2919',
-      'blue'    : '#0c0c0c',
+      'blue'    : '#eaecec',
       'magenta' : '#0c0c0c',
       'cyan'    : '#0c0c0c',
-      'white'   : '#eaecec'
+      'white'   : '#ffffff'
     };
 
     String foregroundColor = colors['white'];
