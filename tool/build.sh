@@ -25,7 +25,9 @@ mkdir -p $BUILDBIN
 dart2js --output-type=dart --categories=Server --minify -o $BUILDBIN/main.dart $TOPDIR/bin/main.dart
 rm -rf $BUILDBIN/main.dart.deps
 
-cp ${GOPATH:?"Need to set GOPATH non-empty"}/bin/cmdr-pty $BUILDBIN/cmdr-pty
+GO_UPDROID_PATH=${GOPATH:?"Need to set GOPATH non-empty"}/src/github.com/updroidinc
+GO_CMDRPTY_PATH=$GO_UPDROID_PATH/cmdr-pty
+cp $GO_CMDRPTY_PATH/cmdr-pty $BUILDBIN/cmdr-pty
 
 # Copy over tabinfo.json -> build/bin
 cp $TOPDIR/lib/tabinfo.json $BUILDBIN

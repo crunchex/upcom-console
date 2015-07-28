@@ -9,13 +9,15 @@ import 'package:upcom-api/tab_backend.dart';
 import 'package:upcom-api/debug.dart' as help;
 
 class CmdrConsole extends Tab {
+  static final List<String> names = ['upcom-console', 'UpDroid Console', 'Console'];
+
   Process _shell;
   String _workspacePath;
   Socket _ptySocket;
 
-  CmdrConsole(int id, String workspacePath, SendPort sp, List args) :
-  super(id, 'upcom-console', 'UpDroid Console', 'Console', sp) {
-    _workspacePath = workspacePath;
+  CmdrConsole(SendPort sp, List args) :
+  super(CmdrConsole.names, sp, args) {
+    _workspacePath = args[2];
   }
 
   void registerMailbox() {
@@ -28,7 +30,7 @@ class CmdrConsole extends Tab {
   void _startPty(String msg) {
     // Process launches 'cmdr-pty', a go program that provides a direct hook to a system pty.
     // See http://bitbucket.org/updroid/cmdr-pty
-    Process.start('cmdr-pty', ['-p', 'tcp', '-s', msg], environment: {'TERM':'vt100'}, workingDirectory: _workspacePath).then((Process shell) {
+    Process.start('${tabPath}/cmdr-pty', ['-p', 'tcp', '-s', msg], environment: {'TERM':'vt100'}, workingDirectory: _workspacePath).then((Process shell) {
       _shell = shell;
 
       // Get the port returned by cmdr-pty and then close.
