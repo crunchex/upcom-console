@@ -31,7 +31,7 @@ class UpDroidConsole extends TabController {
 
   Timer _resizeTimer;
 
-  UpDroidConsole() : super('upcom-console', 'UpDroid Console', 'Console', getMenuConfig(), 'http://localhost:12060/tabs/upcom-console/console.css') {
+  UpDroidConsole() : super('upcom-console', 'UpDroid Console', 'Console', getMenuConfig(), 'tabs/upcom-console/console.css') {
 
   }
 
