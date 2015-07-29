@@ -43,7 +43,14 @@ class CmdrConsole extends Tab {
 
           Socket.connect('127.0.0.1', int.parse(port)).then((socket) {
             _ptySocket = socket;
-            socket.listen((data) => mailbox.send(new Msg('DATA', JSON.encode(data))));
+            StreamSubscription socketSub = _ptySocket.listen((data) => mailbox.send(new Msg('DATA', JSON.encode(data))));
+            socketSub.onDone(() {
+              help.debug('Socket for pty-$id closed.', 0);
+              cleanup();
+            });
+            socketSub.onError(() {
+              help.debug('Error on socket for pty-$id.', 0);
+            });
           });
         }
       });
