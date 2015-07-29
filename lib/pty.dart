@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:upcom-api/tab_backend.dart';
-import 'package:upcom-api/debug.dart' as help;
+import 'package:upcom-api/debug.dart';
 
 class CmdrConsole extends Tab {
   static final List<String> names = ['upcom-console', 'UpDroid Console', 'Console'];
@@ -45,11 +45,11 @@ class CmdrConsole extends Tab {
             _ptySocket = socket;
             StreamSubscription socketSub = _ptySocket.listen((data) => mailbox.send(new Msg('DATA', JSON.encode(data))));
             socketSub.onDone(() {
-              help.debug('Socket for pty-$id closed.', 0);
+              debug('Socket for pty-$id closed.', 0);
               cleanup();
             });
             socketSub.onError(() {
-              help.debug('Error on socket for pty-$id.', 0);
+              debug('Error on socket for pty-$id.', 1);
             });
           });
         }
@@ -60,7 +60,7 @@ class CmdrConsole extends Tab {
 //      shell.stderr.listen((data) => print('pty[$id] stderr: ${UTF8.decode(data)}'));
     }).catchError((error) {
       if (error is! ProcessException) throw error;
-      help.debug('cmdr-pty [$id]: run failed. Probably not installed', 1);
+      debug('cmdr-pty [$id]: run failed. Probably not installed', 1);
       return;
     });
 
