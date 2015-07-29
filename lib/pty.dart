@@ -74,7 +74,7 @@ class CmdrConsole extends Tab {
     List newSize = msg.split('x');
     int newRow = int.parse(newSize[0]);
     int newCol = int.parse(newSize[1]) - 1;
-    _shell.stdin.writeln('${newRow}x${newCol}');
+    if (_shell != null) _shell.stdin.writeln('${newRow}x${newCol}');
     // Send the new size to all UpDroidConsoles (including this one) to be relayed
     // back to their client side.
     mailbox.send(new Msg('RESIZE', msg));
