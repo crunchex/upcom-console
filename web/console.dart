@@ -81,8 +81,8 @@ class UpDroidConsole extends TabController {
       'green'   : '#ff2919',
       'yellow'  : '#ff2919',
       'blue'    : '#eaecec',
-      'magenta' : '#0c0c0c',
-      'cyan'    : '#0c0c0c',
+      'magenta' : '#eaecec',
+      'cyan'    : '#eaecec',
       'white'   : '#ffffff'
     };
 
