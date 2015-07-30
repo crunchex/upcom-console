@@ -4,9 +4,9 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:quiver/async.dart';
 import 'package:terminal/terminal.dart';
 import 'package:terminal/theme.dart';
-
 import 'package:upcom-api/web/mailbox/mailbox.dart';
 import 'package:upcom-api/web/tab/tab_controller.dart';
 
@@ -31,6 +31,7 @@ class UpDroidConsole extends TabController {
   AnchorElement _themeButton, _blinkButton;
 
   Timer _resizeTimer;
+  Completer _ptyIsLoaded, _divIsLoaded;
 
   UpDroidConsole() :
   super(UpDroidConsole.names, getMenuConfig(), 'tabs/upcom-console/console.css') {
@@ -38,6 +39,16 @@ class UpDroidConsole extends TabController {
   }
 
   void setUpController() {
+    // Necessary to start an initial resize after both the backend
+    // is set up/connected, and the frontend div is loaded. In certain
+    // conditions, either one can take a long time.
+    _ptyIsLoaded = new Completer();
+    _divIsLoaded = new Completer();
+    FutureGroup readyForInitialization = new FutureGroup();
+    readyForInitialization.add(_ptyIsLoaded.future);
+    readyForInitialization.add(_divIsLoaded.future);
+    readyForInitialization.future.then((_) => _initialResize());
+
     _themeButton = view.refMap['invert'];
     _blinkButton = view.refMap['cursor-blink'];
 
@@ -45,6 +56,9 @@ class UpDroidConsole extends TabController {
       ..scrollSpeed = 3
       ..cursorBlink = true
       ..theme = customDarkTheme();
+
+    // Assuming the div is "loaded" after Terminal is created.
+    _divIsLoaded.complete();
   }
 
   /// Toggles between a Solarized dark and light theme.
@@ -57,10 +71,13 @@ class UpDroidConsole extends TabController {
     _term.cursorBlink = _term.cursorBlink ? false : true;
   }
 
-  void _startPty(Msg um) {
-    List<int> size = _term.calculateSize();
-    _term.resize(size[0], size[1]);
-    mailbox.ws.send('[[START_PTY]]${size[0]}x${size[1] - 1}');
+  void _startPty(Msg um) => mailbox.ws.send('[[START_PTY]]');
+
+  void _ptyLoadedHandler(Msg um) =>_ptyIsLoaded.complete();
+
+  void _initialResize() {
+    List<int> newSize = _term.calculateSize();
+    mailbox.ws.send('[[INITIATE_RESIZE]]' + '${newSize[0]}x${newSize[1]}');
   }
 
   void _handleData(Msg um) => _term.stdout.add(JSON.decode(um.body));
@@ -115,6 +132,7 @@ class UpDroidConsole extends TabController {
 
   void registerMailbox() {
     mailbox.registerWebSocketEvent(EventType.ON_OPEN, 'TAB_READY', _startPty);
+    mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'PTY_LOADED', _ptyLoadedHandler);
     mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'RESIZE', _resizeHandler);
     mailbox.registerWebSocketEvent(EventType.ON_MESSAGE, 'DATA', _handleData);
   }

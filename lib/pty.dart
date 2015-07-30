@@ -30,7 +30,7 @@ class CmdrConsole extends Tab {
   void _startPty(String msg) {
     // Process launches 'cmdr-pty', a go program that provides a direct hook to a system pty.
     // See http://bitbucket.org/updroid/cmdr-pty
-    Process.start('${tabPath}/cmdr-pty', ['-p', 'tcp', '-s', msg], environment: {'TERM':'vt100'}, workingDirectory: _workspacePath).then((Process shell) {
+    Process.start('${tabPath}/cmdr-pty', ['-p', 'tcp'], environment: {'TERM':'vt100'}, workingDirectory: _workspacePath).then((Process shell) {
       _shell = shell;
 
       // Get the port returned by cmdr-pty and then close.
@@ -42,6 +42,10 @@ class CmdrConsole extends Tab {
           portListener.cancel();
 
           Socket.connect('127.0.0.1', int.parse(port)).then((socket) {
+            // Let client side know the backend is all ready so we can trigger
+            // an initial resize.
+            mailbox.send(new Msg('PTY_LOADED'));
+
             _ptySocket = socket;
             StreamSubscription socketSub = _ptySocket.listen((data) => mailbox.send(new Msg('DATA', JSON.encode(data))));
             socketSub.onDone(() {
@@ -63,8 +67,6 @@ class CmdrConsole extends Tab {
       debug('cmdr-pty [$id]: run failed. Probably not installed', 1);
       return;
     });
-
-    mailbox.send(new Msg('RESIZE', msg));
   }
 
   void _handleIOStream(String msg) {

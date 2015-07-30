@@ -10,3 +10,4 @@ dependencies:
   upcom-api:
     path: /home/crunchex/work/upcom-api/
   terminal: any
+  quiver: any
