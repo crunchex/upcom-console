@@ -8,6 +8,6 @@ environment:
   sdk: '>=1.9.3 <2.0.0'
 dependencies:
   upcom-api:
-    path: /home/crunchex/work/upcom-api/
+    path: ../upcom-api
   terminal: any
   quiver: any
