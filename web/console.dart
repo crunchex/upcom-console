@@ -33,10 +33,7 @@ class UpDroidConsole extends TabController {
   Timer _resizeTimer;
   Completer _ptyIsLoaded, _divIsLoaded;
 
-  UpDroidConsole() :
-  super(UpDroidConsole.names, getMenuConfig(), 'tabs/upcom-console/console.css') {
-
-  }
+  UpDroidConsole() : super(UpDroidConsole.names, PluginType.TAB, getMenuConfig());
 
   void setUpController() {
     // Necessary to start an initial resize after both the backend
@@ -49,10 +46,10 @@ class UpDroidConsole extends TabController {
     readyForInitialization.add(_divIsLoaded.future);
     readyForInitialization.future.then((_) => _initialResize());
 
-    _themeButton = view.refMap['invert'];
-    _blinkButton = view.refMap['cursor-blink'];
+    _themeButton = querySelector('#button-invert');
+    _blinkButton = querySelector('#button-cursor-blink');
 
-    _term = new Terminal(view.content)
+    _term = new Terminal(content)
       ..scrollSpeed = 3
       ..cursorBlink = true
       ..theme = customDarkTheme();
@@ -152,7 +149,7 @@ class UpDroidConsole extends TabController {
     });
 
     window.onResize.listen((e) {
-      if (view.content.parent.parent.classes.contains('active')) {
+      if (content.parent.parent.classes.contains('active')) {
         // Timer prevents a flood of resize events slowing down the system and allows the window to settle.
         if (_resizeTimer != null) _resizeTimer.cancel();
         _resizeTimer = new Timer(new Duration(milliseconds: 500), () {
@@ -163,7 +160,7 @@ class UpDroidConsole extends TabController {
     });
   }
 
-  Element get elementToFocus => view.content.children[0];
+  Element get elementToFocus => content.children[0];
 
   Future<bool> preClose() {
     Completer c = new Completer();
