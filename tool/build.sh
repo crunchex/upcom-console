@@ -57,5 +57,5 @@ GO_UPDROID_PATH=${GOPATH:?"Need to set GOPATH non-empty"}/src/github.com/updroid
 GO_CMDRPTY_PATH=$GO_UPDROID_PATH/cmdr-pty
 cp $GO_CMDRPTY_PATH/cmdr-pty $BUILDBIN/cmdr-pty
 
-# Copy over tabinfo.json -> build/bin
-cp $TOPDIR/lib/tabinfo.json $BUILDBIN
+# Copy over plugin.json -> build/bin
+cp $TOPDIR/lib/plugin.json $BUILDBIN
