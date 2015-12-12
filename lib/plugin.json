@@ -1,5 +1,6 @@
 {
   "refName": "upcom-console",
   "fullName": "UpDroid Console",
-  "shortName": "Console"
+  "shortName": "Console",
+  "types": ["tab"]
 }
