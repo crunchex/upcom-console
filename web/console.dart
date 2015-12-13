@@ -33,7 +33,7 @@ class UpDroidConsole extends TabController {
   Timer _resizeTimer;
   Completer _ptyIsLoaded, _divIsLoaded;
 
-  UpDroidConsole() : super(UpDroidConsole.names, PluginType.TAB, getMenuConfig());
+  UpDroidConsole() : super(UpDroidConsole.names, true, true, getMenuConfig());
 
   void setUpController() {
     // Necessary to start an initial resize after both the backend
