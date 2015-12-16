@@ -28,7 +28,7 @@ class UpDroidConsole extends TabController {
 
   Terminal _term;
 
-  AnchorElement _themeButton, _blinkButton;
+  AnchorElement _closeTabButton, _themeButton, _blinkButton;
 
   Timer _resizeTimer;
   Completer _ptyIsLoaded, _divIsLoaded;
@@ -46,8 +46,9 @@ class UpDroidConsole extends TabController {
     readyForInitialization.add(_divIsLoaded.future);
     readyForInitialization.future.then((_) => _initialResize());
 
-    _themeButton = querySelector('#button-invert');
-    _blinkButton = querySelector('#button-cursor-blink');
+    _closeTabButton = refMap['Close Tab'];
+    _themeButton = refMap['Invert'];
+    _blinkButton = refMap['Cursor Blink'];
 
     _term = new Terminal(content)
       ..scrollSpeed = 3
@@ -137,6 +138,11 @@ class UpDroidConsole extends TabController {
   /// Sets up the event handlers for the console.
   void registerEventHandlers() {
     _term.stdin.stream.listen((data) => mailbox.ws.send('[[DATA]]' + JSON.encode(data)));
+
+    _closeTabButton.onClick.listen((e) {
+      closeTab();
+      e.preventDefault();
+    });
 
     _themeButton.onClick.listen((e) {
       _toggleTheme();
