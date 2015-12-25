@@ -139,11 +139,6 @@ class UpDroidConsole extends TabController {
   void registerEventHandlers() {
     _term.stdin.stream.listen((data) => mailbox.ws.send('[[DATA]]' + JSON.encode(data)));
 
-    _closeTabButton.onClick.listen((e) {
-      closeTab();
-      e.preventDefault();
-    });
-
     _themeButton.onClick.listen((e) {
       _toggleTheme();
       e.preventDefault();
